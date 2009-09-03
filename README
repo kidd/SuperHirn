@@ -1,0 +1,46 @@
+SuperHirn
+
+First attempt to do a proper perl module, with Moose , (kind of) appropiate
+testing, using tools like perlcritic and perltidy.  Pod coverage is used too
+
+Players can be extended to use different techniques to play.
+
+
+INSTALLATION
+
+To install this module, run the following commands:
+
+	perl Makefile.PL
+	make
+	make test
+	make install
+
+SUPPORT AND DOCUMENTATION
+
+After installing, you can find documentation for this module with the
+perldoc command.
+
+    perldoc SuperHirn
+
+You can also look for information at:
+
+    RT, CPAN's request tracker
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=SuperHirn
+
+    AnnoCPAN, Annotated CPAN documentation
+        http://annocpan.org/dist/SuperHirn
+
+    CPAN Ratings
+        http://cpanratings.perl.org/d/SuperHirn
+
+    Search CPAN
+        http://search.cpan.org/dist/SuperHirn/
+
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2009 Raimon Grau
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
