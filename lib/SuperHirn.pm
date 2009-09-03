@@ -2,6 +2,9 @@ package SuperHirn;
 use Moose;
 use feature ':5.10';
 use List::MoreUtils;
+use Moose::Autobox;
+use autobox::Core;
+use autobox;
 
 =head1 NAME
 
@@ -61,8 +64,11 @@ sub run {
 	print Dumper $self->solution;
 
 	while (!$self->finished) {
-		my $next = $self->player1->guessNext($self);
-		$self->tablero->push->($next); #moose autobox
+		my $next = $self->player1->guessNext($self->tablero);
+		print $self->dump, "adeu\n";
+		print $next->dump, "\n";
+		$self->tablero([ $next ]); #moose autobox # default value
+		exit;
 		$self->finished( $self->player2->comprova($self) );
 	}
 	say "player1 won after $count tries";
@@ -80,7 +86,8 @@ sub run {
 sub finished {
 	my ($self) = @_;
 	#return  pairwise {$a eq $b } $self->solution , $self->tablero->[-1] ||
-	return  pairwise {$a eq $b } $self->solution , ('red');
+	return 0 unless ($self->tablero);
+	return  pairwise {$a eq $b } $self->solution , $self->tablero->[-1];
 }
 
 

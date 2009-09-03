@@ -7,6 +7,7 @@ use SuperHirn;
 use SuperHirn::Jugada;
 use Data::Dumper;
 
+$|++;
 my $pl =  SuperHirn::Jugada->new;
 #$pl->playerPlay([$SuperHirn::Jugada::Color::red, $SuperHirn::Jugada::Color::blue]);
 print $pl->dump, "\n";
