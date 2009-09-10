@@ -23,6 +23,14 @@ $g = SuperHirn->new(
 
 isa_ok($g->player1->guessNext , 'SuperHirn::Jugada');
 
-#$ray->comprova($g);
+my $master = SuperHirn::Player::Master->new(name=>'tester');
+$master->createComb;
+ok ($master->comprova(SuperHirn::Jugada->new(
+		playerPlay=>['red','yellow','black','white','beige'])));
 
+is($master->comprova( SuperHirn::Jugada->new(
+		playerPlay=>['yellow','yellow','black','white','beige'])), '', "wrong combination");
+
+#$ray->comprova($g);
 done_testing;
+

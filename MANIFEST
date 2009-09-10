@@ -1,3 +1,4 @@
+.1251991525_NERD_tree_.swp
 .cvsignore
 .MANIFEST.swp
 .prove
@@ -32,6 +33,7 @@ t/00-load.t
 t/01-Fitxa.t
 t/02-Player.t
 t/03-SuperHirn.pm
+t/04-Jugada.t
 t/boilerplate.t
 t/pod-coverage.t
 t/pod.t

@@ -9,11 +9,15 @@ Version 0.01
 
 =cut
 use Moose;
+use SuperHirn::Jugada;
 extends 'SuperHirn::Player';
+
+has 'cache' => (is =>'rw', isa =>'HashRef[Int]');
+
 
 =head2 guessNext
 
-Ara nomes torna la mateixa jugada
+Ara nomes torna una jugada aleatoria, sense memoria
 
 =over 4
 
@@ -24,12 +28,11 @@ Ara nomes torna la mateixa jugada
 =cut
 sub guessNext {
 	my ($self, $tablero) = @_;
-	if ($tablero->[-1]) {
-		return $tablero->[-1];
-	}
-	return SuperHirn::Jugada->new(
-		playerPlay => ['red', 'yellow', 'black' , 'white' , 'beige'] )
-		#playerPlay => [qw/red yellow blue beige black/]);
+		my @ref =qw/red green beige black white yellow/ ;
+		my $a = SuperHirn::Jugada->new( 
+		#playerPlay => [map {@ref[int rand @ref]} 1..5] );
+		playerPlay => ['red', 'yellow', 'black' , 'white' , 'beige'] );
+		return $a;
 }
 
 __PACKAGE__->meta->make_immutable;

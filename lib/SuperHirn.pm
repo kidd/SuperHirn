@@ -1,7 +1,7 @@
 package SuperHirn;
 use Moose;
 use feature ':5.10';
-use List::MoreUtils;
+use List::MoreUtils qw/all/;
 use Moose::Autobox;
 use autobox::Core;
 use autobox;
@@ -32,8 +32,12 @@ Perhaps a little code snippet.
 
 =cut
 
-has 'tablero' => (is =>'rw', isa =>'ArrayRef[SuperHirn::Jugada]');
-has 'solution' => (is =>'rw', isa =>'ArrayRef[Str]');
+has 'tablero' => (is =>'rw', 
+				isa =>'ArrayRef[SuperHirn::Jugada]',
+				predicate => 'has_tablero',
+				default => sub { [] } ,
+			);
+has 'solution' => (is =>'rw', isa =>'SuperHirn::Jugada');
 has 'puntuacio' => (is =>'rw', isa =>'ArrayRef[Str]');
 
 has 'player1' => (
@@ -46,9 +50,24 @@ has 'player2' => (
 	isa =>'SuperHirn::Player::Master' ,
 	required => '1');
 
+has 'size' => (is =>'rw', isa =>'Int', default => 5);
 #has 'puntuacio' => (is =>'rw', isa =>'ArrayRef[HighScore]');
 
 =head1 FUNCTIONS
+
+=head2 init
+
+=over 4
+
+=item Arguments:
+
+=back
+
+=cut
+sub init {
+	my ($self) = @_;
+	$self->solution($self->player2->createComb);
+}
 
 =head2 run
 
@@ -59,17 +78,15 @@ sub run {
 	my ($self) = @_;
 	print "Hi, today the challengers for mastermind are:",
 	$self->player1->name, " vs " , $self->player2->name, "\n";
+	$self->init;
 	my $count=0;
-	$self->solution($self->player2->createComb);
 	print Dumper $self->solution;
 
-	while (!$self->finished) {
+	until ($self->finished) {
 		my $next = $self->player1->guessNext($self->tablero);
-		print $self->dump, "adeu\n";
-		print $next->dump, "\n";
-		$self->tablero([ $next ]); #moose autobox # default value
-		exit;
-		$self->finished( $self->player2->comprova($self) );
+		$self->tablero->push($next);# default value
+		++$count;
+		#say $next->dump;
 	}
 	say "player1 won after $count tries";
 }
@@ -85,16 +102,15 @@ sub run {
 =cut
 sub finished {
 	my ($self) = @_;
-	#return  pairwise {$a eq $b } $self->solution , $self->tablero->[-1] ||
-	return 0 unless ($self->tablero);
-	return  pairwise {$a eq $b } $self->solution , $self->tablero->[-1];
+	return 0 unless ( $self->tablero->length);
+	return $self->player2->comprova($self->tablero->[-1]);
 }
 
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
-=head1 AUTHOR
+=head1 AUTHOR#{{{
 
 Raimon Grau, C<< <raimonster at gmail.com> >>
 
@@ -150,4 +166,4 @@ under the same terms as Perl itself.
 
 =cut
 
-1; # End of SuperHirn
+1; # End of SuperHirn#}}}

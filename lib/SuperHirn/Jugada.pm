@@ -18,7 +18,6 @@ enum 'Color' => qw/red green beige black white yellow/ ;
 
 #has 'playerPlay' => (is =>'rw', isa =>'ArrayRef[Str]' ); # pq no puede ser [Color] ?
 
-has 'col' => (is =>'rw', isa =>'Color');
 has 'playerPlay' => (is =>'rw', isa =>'ArrayRef[Color]');
 has 'check' => (is =>'rw', isa =>'ArrayRef[Int]');
 

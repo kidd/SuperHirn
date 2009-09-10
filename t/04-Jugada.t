@@ -12,7 +12,6 @@ use SuperHirn;
 my $pl;
 
 $pl =  SuperHirn::Jugada->new;
-lives_ok{$pl->col('red')} "si";
 
 lives_ok {$pl->playerPlay( ['red', 'black'] )} "siiii";
 done_testing;
