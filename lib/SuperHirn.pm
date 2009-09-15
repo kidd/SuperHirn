@@ -102,7 +102,8 @@ sub run {
 =cut
 sub finished {
 	my ($self) = @_;
-	return 0 unless ( $self->tablero->length);
+	say $self->tablero->length;
+	return 0 unless ($self->tablero->length);
 	return $self->player2->comprova($self->tablero->[-1]);
 }
 

@@ -12,7 +12,10 @@ use Moose;
 use SuperHirn::Jugada;
 extends 'SuperHirn::Player';
 
-has 'cache' => (is =>'rw', isa =>'HashRef[Int]');
+has 'cache' => (is =>'rw',
+	isa =>'HashRef[Int]', 
+	default => sub {return {}; }
+				);
 
 
 =head2 guessNext
@@ -29,9 +32,13 @@ Ara nomes torna una jugada aleatoria, sense memoria
 sub guessNext {
 	my ($self, $tablero) = @_;
 		my @ref =qw/red green beige black white yellow/ ;
+		my $nextPlay = [map {@ref[int rand @ref]} 1..5];
+		$nextPlay = [map {@ref[int rand @ref]} 1..5] while ( exists $self->cache->{join '', @$nextPlay} );
 		my $a = SuperHirn::Jugada->new( 
 		#playerPlay => [map {@ref[int rand @ref]} 1..5] );
-		playerPlay => ['red', 'yellow', 'black' , 'white' , 'beige'] );
+		playerPlay => $nextPlay);
+	#playerPlay => ['red', 'yellow', 'black' , 'white' , 'beige'] );
+	$self->cache->{join '', @$nextPlay} = 1;
 		return $a;
 }
 

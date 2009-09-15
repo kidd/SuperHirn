@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use Perl6::Say;
 use Test::More;
 use Test::Moose;
 use Test::Exception;
@@ -27,12 +28,13 @@ lives_ok {
 } "must be initialized with 2 players";
 
 $g->init;
+	isnt($g->finished(),1,"empty tablero");
+
 for (1..4) {
-	is($g->finished(),0,"empty tablero");
 	$g->tablero->push(SuperHirn::Jugada->new(
 			playerPlay=>['black','yellow','black','white','beige']));
+	isnt($g->finished(),1,"empty tablero");
 }
-
 $g->tablero->push(SuperHirn::Jugada->new(
 		playerPlay=>['red','yellow','black','white','beige']));
 

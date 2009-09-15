@@ -32,8 +32,6 @@ sub createComb {
 		return $self->winnerComb;
 }
 
-
-
 =head2 comprova
 
 Donat una una jugada, comprova retorna les pius negres i blancs
@@ -54,6 +52,19 @@ sub comprova {
 	return $comp1->compare(
 		$jugada->playerPlay,
 		$self->winnerComb->playerPlay);
+}
+
+=head2 diff
+Takes a 1 jugada and returns the diferences between it an the winnerComb in a hash like
+{ black => blackPins, white => whitePins }
+=over 4
+=item Arguments: 
+	SuperHirn::Jugada
+=cut
+
+sub diff {
+	my ($self) = @_;
+	#returns a hash
 }
 
 __PACKAGE__->meta->make_immutable;
