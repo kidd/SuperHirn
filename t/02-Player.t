@@ -31,6 +31,11 @@ ok ($master->comprova(SuperHirn::Jugada->new(
 is($master->comprova( SuperHirn::Jugada->new(
 		playerPlay=>['yellow','yellow','black','white','beige'])), '', "wrong combination");
 
+is ($master->diff(SuperHirn::Jugada->new(
+		playerPlay=>['red','yellow','black','white','beige'])),(5,0),"all blacks ok" );
+
+is ($master->diff(SuperHirn::Jugada->new(
+		playerPlay=>['black','red','black','white','beige'])),(3,1),"3 black 1 white" );
 #$ray->comprova($g);
 done_testing;
 

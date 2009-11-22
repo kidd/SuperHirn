@@ -33,6 +33,7 @@ $g->init;
 for (1..4) {
 	$g->tablero->push(SuperHirn::Jugada->new(
 			playerPlay=>['black','yellow','black','white','beige']));
+
 	isnt($g->finished(),1,"empty tablero");
 }
 $g->tablero->push(SuperHirn::Jugada->new(
